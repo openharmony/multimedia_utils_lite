@@ -36,6 +36,12 @@ Source::Source(const std::shared_ptr<StreamSource> &stream, const Format &format
     format_.CopyFrom(formats);
 }
 
+Source::Source(std::shared_ptr<DataConsumer> dataConsumer)
+    : sourceType_(SourceType::SOURCE_TYPE_STREAM),
+      dataConsumer_(std::move(dataConsumer))
+{
+}
+
 SourceType Source::GetSourceType() const
 {
     return sourceType_;
@@ -58,6 +64,11 @@ const std::shared_ptr<StreamSource> &Source::GetSourceStream() const
 const Format &Source::GetSourceStreamFormat() const
 {
     return format_;
+}
+
+std::shared_ptr<DataConsumer> Source::GetDataConsumer() const
+{
+    return dataConsumer_;
 }
 
 StreamSource::StreamSource()
