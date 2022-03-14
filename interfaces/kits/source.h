@@ -39,6 +39,7 @@
 #include <memory>
 #include <map>
 #include <string>
+#include "data_stream.h"
 #include "format.h"
 #ifndef SURFACE_DISABLED
 #include "surface.h"
@@ -227,6 +228,15 @@ public:
      */
     Source(const std::shared_ptr<StreamSource> &stream, const Format &formats);
 
+    /**
+     * @brief A constructor used to create a {@link Source} instance based on the data stream consumer.
+     *
+     * @param dataConsumer Indicates the data stream consumer. For details, see {@link DataConsumer}.
+     * @since 1.0
+     * @version 1.0
+     */
+    explicit Source(const std::shared_ptr<DataConsumer> &dataConsumer);
+
     ~Source() = default;
 
     /**
@@ -280,12 +290,24 @@ public:
      */
     const Format &GetSourceStreamFormat() const;
 
+    /**
+     * @brief Obtains the data stream consumer interface.
+     *
+     * This function is called only when the {@link SourceType} is {@link SOURCE_TYPE_STREAM}.
+     *
+     * @return Returns the data stream consumer interface. For details, see {@link DataConsumer}.
+     * @since 1.0
+     * @version 1.0
+     */
+    const std::shared_ptr<DataConsumer> &GetDataConsumer() const;
+
 private:
     std::string uri_;
     SourceType sourceType_;
     std::map<std::string, std::string> header_;
     std::shared_ptr<StreamSource> stream_;
     Format format_;
+    std::shared_ptr<DataConsumer> dataConsumer_;
 };
 }  // namespace Media
 }  // namespace OHOS
