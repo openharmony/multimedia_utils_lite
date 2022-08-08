@@ -80,7 +80,7 @@ StreamSource::StreamSource()
 
 StreamSource::~StreamSource()
 {
-    MEDIA_ERR_LOG("[%s,%d] in", __func__, __LINE__);
+    MEDIA_DEBUG_LOG("[%s,%d] in", __func__, __LINE__);
 #ifndef SURFACE_DISABLED
     if (surface_ != nullptr) {
         delete surface_;
